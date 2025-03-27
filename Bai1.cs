@@ -7,6 +7,7 @@ namespace CarManagement
     class Bai1
     {
         enum CarType { Electric, Fuel }
+
         class Car
         {
             public string Make { get; set; }
@@ -68,18 +69,74 @@ namespace CarManagement
 
         static void AddCar(List<Car> cars)
         {
+            // Kiểm tra kiểu xe
+            CarType type;
+            while (true)
+            {
+                Console.Write("Enter Car type (Fuel/Electric): ");
+                string typeInput = Console.ReadLine().Trim();
 
-            Console.Write("Enter Car type (Fuel/Electric): ");
-            CarType type = (CarType)Enum.Parse(typeof(CarType), Console.ReadLine(), true);
+                if (Enum.TryParse(typeInput, true, out type) && Enum.IsDefined(typeof(CarType), type))
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid car type. Please enter 'Fuel' or 'Electric'.");
+                }
+            }
 
-            Console.Write("Enter Make: ");
-            string make = Console.ReadLine();
+            // Kiểm tra Make và Model không chứa ký tự đặc biệt và không trống
+            string make;
+            while (true)
+            {
+                Console.Write("Enter Make: ");
+                make = Console.ReadLine().Trim();
+                if (string.IsNullOrWhiteSpace(make) || make.Any(c => !Char.IsLetterOrDigit(c) && c != ' '))
+                {
+                    Console.WriteLine("Invalid input. Make cannot be empty or contain special characters.");
+                }
+                else
+                {
+                    break;
+                }
+            }
 
-            Console.Write("Enter Model: ");
-            string model = Console.ReadLine();
+            string model;
+            while (true)
+            {
+                Console.Write("Enter Model: ");
+                model = Console.ReadLine().Trim();
+                if (string.IsNullOrWhiteSpace(model) || model.Any(c => !Char.IsLetterOrDigit(c) && c != ' '))
+                {
+                    Console.WriteLine("Invalid input. Model cannot be empty or contain special characters.");
+                }
+                else if (cars.Any(car => car.Model.Equals(model, StringComparison.OrdinalIgnoreCase)))
+                {
 
-            Console.Write("Enter Year: ");
-            int year = int.Parse(Console.ReadLine());
+                    Console.WriteLine("Model already exists. Please enter a different model.");
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            int year;
+            while (true)
+            {
+                Console.Write("Enter Year: ");
+                string yearInput = Console.ReadLine();
+
+                if (int.TryParse(yearInput, out year) && year >= 1900 && year <= DateTime.Now.Year)
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid year. Please enter a valid year (greater than or equal to 1900 and less than or equal to the current year).");
+                }
+            }
 
             Car newCar = new Car(make, model, year, type);
             cars.Add(newCar);
