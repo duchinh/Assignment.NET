@@ -1,0 +1,71 @@
+@model IEnumerable<Bai2.Models.Person>
+
+@{
+    ViewData["Title"] = "Danh sách nam giới";
+}
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h1 class="h3 mb-0">Danh sách nam giới</h1>
+                    <a asp-controller="Rookies" asp-action="Index" class="btn btn-light">
+                        <i class="fas fa-arrow-left me-2"></i>Quay lại
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Họ và tên</th>
+                                    <th>@Html.DisplayNameFor(model => model.First().DateOfBirth)</th>
+                                    <th>@Html.DisplayNameFor(model => model.First().PhoneNumber)</th>
+                                    <th>@Html.DisplayNameFor(model => model.First().BirthPlace)</th>
+                                    <th>@Html.DisplayNameFor(model => model.First().IsGraduated)</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <a asp-controller="Rookies" asp-action="Details" asp-route-id="@item.Id" class="text-decoration-none">
+                                                @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
+                                            </a>
+                                        </td>
+                                        <td>@Html.DisplayFor(modelItem => item.DateOfBirth)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.BirthPlace)</td>
+                                        <td>
+                                            @if (item.IsGraduated)
+                                            {
+                                                <span class="badge bg-success">Đã tốt nghiệp</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-warning">Chưa tốt nghiệp</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <a asp-controller="Rookies" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm" title="Sửa">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a asp-controller="Rookies" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm" title="Xóa">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

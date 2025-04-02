@@ -1,0 +1,52 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Lỗi";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-body text-center p-5">
+                    <div class="mb-4">
+                        <i class="fas fa-exclamation-circle fa-5x text-danger"></i>
+                    </div>
+                    
+                    <h1 class="text-danger mb-4">Đã xảy ra lỗi!</h1>
+                    <p class="lead text-muted mb-4">Có vẻ như đã có vấn đề xảy ra khi xử lý yêu cầu của bạn.</p>
+
+                    @if (Model.ShowRequestId)
+                    {
+                        <div class="alert alert-info">
+                            <strong>Mã yêu cầu:</strong> <code>@Model.RequestId</code>
+                        </div>
+                    }
+
+                    <div class="card bg-light mb-4">
+                        <div class="card-body">
+                            <h3 class="h5 mb-3">Chế độ phát triển</h3>
+                            <p class="mb-3">
+                                Chuyển sang chế độ <strong>Development</strong> sẽ hiển thị thông tin chi tiết hơn về lỗi đã xảy ra.
+                            </p>
+                            <div class="alert alert-warning">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <strong>Lưu ý:</strong> Chế độ Development không nên được bật cho các ứng dụng đã triển khai.
+                                Điều này có thể dẫn đến việc hiển thị thông tin nhạy cảm từ các ngoại lệ cho người dùng cuối.
+                            </div>
+                            <p class="mb-0">
+                                Để gỡ lỗi cục bộ, hãy bật chế độ <strong>Development</strong> bằng cách đặt biến môi trường 
+                                <strong>ASPNETCORE_ENVIRONMENT</strong> thành <strong>Development</strong> và khởi động lại ứng dụng.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <a href="/" class="btn btn-primary">
+                            <i class="fas fa-home me-2"></i>Về trang chủ
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
