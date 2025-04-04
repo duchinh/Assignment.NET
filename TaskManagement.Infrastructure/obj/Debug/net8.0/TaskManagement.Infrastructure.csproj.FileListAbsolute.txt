@@ -1,0 +1,15 @@
+D:\C#\NETCoreWebAPI\Assignment1_update\TaskManagement.Infrastructure\bin\Debug\net8.0\TaskManagement.Infrastructure.deps.json
+D:\C#\NETCoreWebAPI\Assignment1_update\TaskManagement.Infrastructure\bin\Debug\net8.0\TaskManagement.Infrastructure.dll
+D:\C#\NETCoreWebAPI\Assignment1_update\TaskManagement.Infrastructure\bin\Debug\net8.0\TaskManagement.Infrastructure.pdb
+D:\C#\NETCoreWebAPI\Assignment1_update\TaskManagement.Infrastructure\bin\Debug\net8.0\TaskManagement.Core.dll
+D:\C#\NETCoreWebAPI\Assignment1_update\TaskManagement.Infrastructure\bin\Debug\net8.0\TaskManagement.Core.pdb
+D:\C#\NETCoreWebAPI\Assignment1_update\TaskManagement.Infrastructure\obj\Debug\net8.0\TaskManagement.Infrastructure.csproj.AssemblyReference.cache
+D:\C#\NETCoreWebAPI\Assignment1_update\TaskManagement.Infrastructure\obj\Debug\net8.0\TaskManagement.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\C#\NETCoreWebAPI\Assignment1_update\TaskManagement.Infrastructure\obj\Debug\net8.0\TaskManagement.Infrastructure.AssemblyInfoInputs.cache
+D:\C#\NETCoreWebAPI\Assignment1_update\TaskManagement.Infrastructure\obj\Debug\net8.0\TaskManagement.Infrastructure.AssemblyInfo.cs
+D:\C#\NETCoreWebAPI\Assignment1_update\TaskManagement.Infrastructure\obj\Debug\net8.0\TaskManagement.Infrastructure.csproj.CoreCompileInputs.cache
+D:\C#\NETCoreWebAPI\Assignment1_update\TaskManagement.Infrastructure\obj\Debug\net8.0\TaskMana.BCA0E1A6.Up2Date
+D:\C#\NETCoreWebAPI\Assignment1_update\TaskManagement.Infrastructure\obj\Debug\net8.0\TaskManagement.Infrastructure.dll
+D:\C#\NETCoreWebAPI\Assignment1_update\TaskManagement.Infrastructure\obj\Debug\net8.0\refint\TaskManagement.Infrastructure.dll
+D:\C#\NETCoreWebAPI\Assignment1_update\TaskManagement.Infrastructure\obj\Debug\net8.0\TaskManagement.Infrastructure.pdb
+D:\C#\NETCoreWebAPI\Assignment1_update\TaskManagement.Infrastructure\obj\Debug\net8.0\ref\TaskManagement.Infrastructure.dll
