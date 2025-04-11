@@ -71,7 +71,6 @@ namespace EFCoreWebAPI.Data
 
             modelBuilder.Entity<Salary>(entity =>
             {
-                // Specify the store type to avoid truncation issues
                 entity.Property(s => s.Amount)
                       .HasColumnType("decimal(18,2)");
             });
@@ -87,7 +86,6 @@ namespace EFCoreWebAPI.Data
                 new Project { Id = 1, Name = "Project A" },
                 new Project { Id = 2, Name = "Project B" }
             );
-
         }
     }
 }

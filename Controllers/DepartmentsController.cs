@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using EFCoreWebAPI.Data;
+using EFCoreWebAPI.Services;
 using EFCoreWebAPI.Models;
 
 namespace EFCoreWebAPI.Controllers
@@ -9,25 +8,26 @@ namespace EFCoreWebAPI.Controllers
     [ApiController]
     public class DepartmentsController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IDepartmentService _departmentService;
 
-        public DepartmentsController(AppDbContext context)
+        public DepartmentsController(IDepartmentService departmentService)
         {
-            _context = context;
+            _departmentService = departmentService;
         }
 
-        // GET: api/departments
+        // GET: api/Departments
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Department>>> GetDepartments()
         {
-            return await _context.Departments.ToListAsync();
+            var departments = await _departmentService.GetAllAsync();
+            return Ok(departments);
         }
 
-        // GET: api/departments/5
+        // GET: api/Departments/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Department>> GetDepartment(int id)
         {
-            var department = await _context.Departments.FindAsync(id);
+            var department = await _departmentService.GetByIdAsync(id);
 
             if (department == null)
             {
@@ -37,17 +37,7 @@ namespace EFCoreWebAPI.Controllers
             return department;
         }
 
-        // POST: api/departments
-        [HttpPost]
-        public async Task<ActionResult<Department>> PostDepartment(Department department)
-        {
-            _context.Departments.Add(department);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetDepartment), new { id = department.Id }, department);
-        }
-
-        // PUT: api/departments/5
+        // PUT: api/Departments/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutDepartment(int id, Department department)
         {
@@ -56,46 +46,42 @@ namespace EFCoreWebAPI.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(department).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                await _departmentService.UpdateAsync(department);
             }
-            catch (DbUpdateConcurrencyException)
+            catch
             {
-                if (!DepartmentExists(id))
+                if (await _departmentService.GetByIdAsync(id) == null)
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
 
             return NoContent();
         }
 
-        // DELETE: api/departments/5
+        // POST: api/Departments
+        [HttpPost]
+        public async Task<ActionResult<Department>> PostDepartment(Department department)
+        {
+            var createdDepartment = await _departmentService.CreateAsync(department);
+            return CreatedAtAction("GetDepartment", new { id = createdDepartment.Id }, createdDepartment);
+        }
+
+        // DELETE: api/Departments/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDepartment(int id)
         {
-            var department = await _context.Departments.FindAsync(id);
+            var department = await _departmentService.GetByIdAsync(id);
             if (department == null)
             {
                 return NotFound();
             }
 
-            _context.Departments.Remove(department);
-            await _context.SaveChangesAsync();
-
+            await _departmentService.DeleteAsync(id);
             return NoContent();
         }
-
-        private bool DepartmentExists(int id)
-        {
-            return _context.Departments.Any(e => e.Id == id);
-        }
     }
-}
+} 

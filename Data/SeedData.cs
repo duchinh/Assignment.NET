@@ -27,7 +27,7 @@ namespace EFCoreWebAPI.Data
                     accounting,
                     hr
                 );
-
+                
                 context.SaveChanges();
             }
         }

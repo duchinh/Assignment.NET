@@ -8,6 +8,6 @@ public class Salary
     public int Id { get; set; }
     public int EmployeeId { get; set; }
     public required Employee Employee { get; set; }
-    public decimal Amount { get; set; }  // Adding the actual salary amount
+    public decimal Amount { get; set; }  
 
 }
