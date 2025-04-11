@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using EFCoreWebAPI.Data;
 using EFCoreWebAPI.Models;
+using EFCoreWebAPI.Models.DTOs;
 
 namespace EFCoreWebAPI.Services
 {
@@ -104,5 +105,45 @@ namespace EFCoreWebAPI.Services
                     WHERE s.Amount > 100")
                 .ToListAsync();
         }
+
+        Task<IEnumerable<EmployeeDTO>> IEmployeeService.GetEmployeesWithDepartmentAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<IEnumerable<EmployeeDTO>> IEmployeeService.GetEmployeesWithProjectsAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<IEnumerable<EmployeeDTO>> IEmployeeService.GetHighSalaryEmployeesAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<EmployeeDTO>> GetEmployeesWithDepartmentInnerJoinAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<EmployeeDTO>> GetEmployeesWithProjectsLeftJoinAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<EmployeeDTO>> GetEmployeesWithHighSalaryAndRecentJoinAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Employee>> GetEmployeesWithHighSalaryAndRecentJoinRawSQLAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateEmployeeSalaryWithTransactionAsync(int employeeId, decimal newSalary)
+        {
+            throw new NotImplementedException();
+        }
     }
-} 
+}
