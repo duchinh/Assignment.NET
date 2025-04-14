@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Assignment1.Services;
 using Assignment1.Models;
 using ClosedXML.Excel;
-using System.IO;
+
 
 namespace Assignment1.Controllers
 {
@@ -57,37 +57,9 @@ namespace Assignment1.Controllers
         [HttpGet("ExportToExcel")]
         public IActionResult ExportToExcel()
         {
-            var people = _personService.GetAll();
-            using var workbook = new XLWorkbook();
-            var worksheet = workbook.Worksheets.Add("People");
+            var fileContent = _personService.ExportPeopleToExcel();
 
-            // Add headers
-            worksheet.Cell(1, 1).Value = "First Name";
-            worksheet.Cell(1, 2).Value = "Last Name";
-            worksheet.Cell(1, 3).Value = "Gender";
-            worksheet.Cell(1, 4).Value = "Date of Birth";
-            worksheet.Cell(1, 5).Value = "Phone Number";
-            worksheet.Cell(1, 6).Value = "Birth Place";
-            worksheet.Cell(1, 7).Value = "Is Graduated";
-
-            // Add data
-            int row = 2;
-            foreach (var person in people)
-            {
-                worksheet.Cell(row, 1).Value = person.FirstName;
-                worksheet.Cell(row, 2).Value = person.LastName;
-                worksheet.Cell(row, 3).Value = person.FullName;
-                worksheet.Cell(row, 4).Value = person.DateOfBirth;
-                worksheet.Cell(row, 5).Value = person.PhoneNumber;
-                worksheet.Cell(row, 6).Value = person.BirthPlace;
-                worksheet.Cell(row, 7).Value = person.IsGraduated;
-                row++;
-            }
-
-            using var stream = new MemoryStream();
-            workbook.SaveAs(stream);
-
-            return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "people.xlsx");
+            return File(fileContent, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "people.xlsx");
         }
     }
 }
