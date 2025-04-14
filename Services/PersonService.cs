@@ -21,18 +21,17 @@ namespace Bai2.Services
             return _persons;
         }
 
-        public Person? GetById(int id)
+        public Person GetById(int id)
         {
-            return _persons.FirstOrDefault(p => p.Id == id);
+            return _persons.First(p => p.Id == id);
         }
 
         public void Create(Person person)
         {
-            if (_persons.Any(p => p.PhoneNumber == person.PhoneNumber))
+            if (_persons.Any(p => p.Id == person.Id))
             {
-                throw new InvalidOperationException("Số điện thoại đã tồn tại");
+                throw new InvalidOperationException("ID đã tồn tại");
             }
-            person.Id = _persons.Max(p => p.Id) + 1;
             _persons.Add(person);
         }
 
@@ -41,24 +40,18 @@ namespace Bai2.Services
             var existingPerson = _persons.FirstOrDefault(p => p.Id == person.Id);
             if (existingPerson == null)
             {
-                throw new InvalidOperationException("Không tìm thấy người dùng với ID này");
-            }
-
-            if (person.PhoneNumber != existingPerson.PhoneNumber && _persons.Any(p => p.PhoneNumber == person.PhoneNumber))
-            {
-                throw new InvalidOperationException("Số điện thoại đã tồn tại");
+                throw new InvalidOperationException("Không tìm thấy người dùng với id này");
             }
 
             existingPerson.FirstName = person.FirstName;
             existingPerson.LastName = person.LastName;
             existingPerson.Gender = person.Gender;
             existingPerson.DateOfBirth = person.DateOfBirth;
-            existingPerson.PhoneNumber = person.PhoneNumber;
             existingPerson.BirthPlace = person.BirthPlace;
             existingPerson.IsGraduated = person.IsGraduated;
         }
 
-        public void Delete(int id)
+         public void Delete(int id)
         {
             var person = _persons.FirstOrDefault(p => p.Id == id);
             if (person == null)
@@ -68,6 +61,7 @@ namespace Bai2.Services
             _persons.Remove(person);
         }
 
+
         public IEnumerable<Person> GetMaleMembers()
         {
             return _persons.Where(p => p.Gender == Gender.Male);
@@ -75,9 +69,14 @@ namespace Bai2.Services
 
         public Person GetOldestMember()
         {
-            return _persons.OrderBy(p => p.DateOfBirth).First();
+            var oldest = _persons.OrderBy(p => p.DateOfBirth).FirstOrDefault();
+            if (oldest == null)
+            {
+                throw new InvalidOperationException("No persons available to determine the oldest member.");
+            }
+            return oldest;
         }
-
+        
         public string GetFullName(int id)
         {
             var person = GetById(id);
@@ -123,99 +122,6 @@ namespace Bai2.Services
                 PageSize = pageSize,
                 TotalItems = totalItems
             };
-        }
-
-        public string GetExportExcelString()
-        {
-            return "First Name, Last Name, Gender, Date of Birth, Phone Number, Birth Place, Is Graduated\n" + 
-                   string.Join("\r\n", _persons.Select(p => $"{p.FirstName}, {p.LastName}, {p.Gender}, {p.DateOfBirth:yyyy-MM-dd}, {p.PhoneNumber}, {p.BirthPlace}, {p.IsGraduated}"));
-        }
-
-        public string GetMaleMembersString()
-        {
-            var males = _persons.Where(p => p.Gender == Gender.Male)
-                              .Select(p => $"{p.FirstName} {p.LastName}");
-            return "Male Members: " + string.Join(", ", males);
-        }
-
-        public string GetOldestMemberString()
-        {
-            var oldest = _persons.OrderBy(p => p.DateOfBirth).FirstOrDefault();
-            if (oldest != null)
-            {
-                return $"Oldest Member: {oldest.FirstName} {oldest.LastName}, Date of Birth: {oldest.DateOfBirth.ToShortDateString()}";
-            }
-            return "No members found.";
-        }
-
-        public string GetFullNamesString()
-        {
-            var fullNames = _persons.Select(p => $"{p.LastName} {p.FirstName}");
-            return "Full Names: " + string.Join(", ", fullNames);
-        }
-
-        public string GetMembersByBirthYearString(string filter)
-        {
-            switch (filter?.ToLower())
-            {
-                case "equal":
-                    var equal = _persons.Where(p => p.DateOfBirth.Year == 2000)
-                                      .Select(p => $"{p.FirstName} {p.LastName}");
-                    return "Members born in 2000: " + string.Join(", ", equal);
-                case "greater":
-                    var greater = _persons.Where(p => p.DateOfBirth.Year > 2000)
-                                        .Select(p => $"{p.FirstName} {p.LastName}");
-                    return "Members born after 2000: " + string.Join(", ", greater);
-                case "less":
-                    var less = _persons.Where(p => p.DateOfBirth.Year < 2000)
-                                     .Select(p => $"{p.FirstName} {p.LastName}");
-                    return "Members born before 2000: " + string.Join(", ", less);
-                default:
-                    return "Invalid filter. Please use 'equal', 'greater', or 'less'.";
-            }
-        }
-
-        public Person GetPersonDetails(int id)
-        {
-            var person = GetById(id);
-            if (person == null)
-            {
-                throw new InvalidOperationException("Không tìm thấy người dùng với ID này");
-            }
-            return person;
-        }
-
-        public Person GetPersonForEdit(int id)
-        {
-            return GetPersonDetails(id);
-        }
-
-        public Person GetPersonForDelete(int id)
-        {
-            return GetPersonDetails(id);
-        }
-
-        public object CreatePerson(Person person)
-        {
-            Create(person);
-            return new { success = true };
-        }
-
-        public object UpdatePerson(Person person)
-        {
-            Update(person);
-            return new { success = true };
-        }
-
-        public object DeletePerson(int id)
-        {
-            var person = GetById(id);
-            if (person != null)
-            {
-                Delete(id);
-                return new { success = true, message = $"Person {person.FirstName} {person.LastName} was removed from the list successfully!" };
-            }
-            return new { success = false, message = "Person not found" };
         }
     }
 }
