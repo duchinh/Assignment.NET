@@ -3,7 +3,7 @@ namespace Bai2.Services
 {
     public class PersonService : IPersonService
     {
-        private static List<Person> _persons = new List<Person>{
+        private List<Person> _persons = new List<Person>{
             new Person {Id = 1, FirstName = "Nguyen", LastName = "Hue", Gender = Gender.Male, DateOfBirth = new DateTime(1990, 5, 1), PhoneNumber = "08742138911", BirthPlace = "Hung Yen", IsGraduated = true},
             new Person {Id = 2, FirstName = "Van", LastName = "Manh", Gender = Gender.Male, DateOfBirth = new DateTime(1999, 6, 2), PhoneNumber = "0986382411", BirthPlace = "Ha Tinh", IsGraduated = true},
             new Person {Id = 3, FirstName = "Nguyen", LastName = "Huyen", Gender = Gender.Female, DateOfBirth = new DateTime(2003, 7, 3), PhoneNumber = "0876892212", BirthPlace = "Nam Dinh", IsGraduated = true},
@@ -21,9 +21,9 @@ namespace Bai2.Services
             return _persons;
         }
 
-        public Person GetById(int id)
+        public Person? GetById(int id)
         {
-            return _persons.First(p => p.Id == id);
+            return _persons.FirstOrDefault(p => p.Id == id);
         }
 
         public void Create(Person person)
@@ -51,7 +51,7 @@ namespace Bai2.Services
             existingPerson.IsGraduated = person.IsGraduated;
         }
 
-         public void Delete(int id)
+        public void Delete(int id)
         {
             var person = _persons.FirstOrDefault(p => p.Id == id);
             if (person == null)
@@ -76,7 +76,7 @@ namespace Bai2.Services
             }
             return oldest;
         }
-        
+
         public string GetFullName(int id)
         {
             var person = GetById(id);
