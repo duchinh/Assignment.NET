@@ -37,5 +37,5 @@ cd Assignment.NET.Test
 - `Assignment.NET.Test/` - Unit test (NUnit, Moq)
 
 ## Liên hệ
-- Tác giả: [Tên của bạn]
+- Tác giả: Duc chinh
 - Github: https://github.com/duchinh/Assignment.NET
