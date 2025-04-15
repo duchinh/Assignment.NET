@@ -1,0 +1,87 @@
+@model Bai2.Models.PaginationModel<Bai2.Models.Person>
+
+@{
+    ViewData["Title"] = "Danh sách người dùng";
+}
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h1 class="h3 mb-0">Danh sách người dùng</h1>
+                    <a asp-action="Create" class="btn btn-light">
+                        <i class="fas fa-plus-circle me-2"></i>Thêm mới
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Họ và tên</th>
+                                    <th>@Html.DisplayNameFor(model => model.Items.First().Gender)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Items.First().DateOfBirth)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Items.First().PhoneNumber)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Items.First().BirthPlace)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Items.First().IsGraduated)</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Items)
+                                {
+                                    <tr>
+                                        <td>
+                                            <a asp-action="Details" asp-route-id="@item.Id" class="text-decoration-none">
+                                                @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
+                                            </a>
+                                        </td>
+                                        <td>@Html.DisplayFor(modelItem => item.Gender)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.DateOfBirth)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.BirthPlace)</td>
+                                        <td>
+                                            @if (item.IsGraduated)
+                                            {
+                                                <span class="badge bg-success">Đã tốt nghiệp</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-warning">Chưa tốt nghiệp</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm" title="Sửa">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm" title="Xóa">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    @if (Model.TotalPages > 1)
+                    {
+                        <nav aria-label="Page navigation" class="mt-4">
+                            <ul class="pagination justify-content-center">
+                                @for (int i = 1; i <= Model.TotalPages; i++)
+                                {
+                                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                                        <a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-pageSize="@Model.PageSize">@i</a>
+                                    </li>
+                                }
+                            </ul>
+                        </nav>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

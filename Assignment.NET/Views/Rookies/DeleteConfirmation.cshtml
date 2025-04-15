@@ -1,0 +1,29 @@
+@{
+    ViewData["Title"] = "Xác nhận xóa";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h1 class="h3 mb-0">Xác nhận xóa</h1>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <i class="fas fa-check-circle me-2"></i>
+                        @TempData["Message"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <a asp-action="Index" class="btn btn-primary btn-lg">
+                            <i class="fas fa-arrow-left me-2"></i>
+                            Quay lại danh sách
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

@@ -1,0 +1,112 @@
+@model Bai2.Models.Person
+
+@{
+    ViewData["Title"] = "Xóa người dùng";
+}
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-danger text-white">
+                    <h1 class="h3 mb-0">Xóa người dùng</h1>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        Bạn có chắc chắn muốn xóa người dùng này không?
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h5 class="card-title text-muted">@Html.DisplayNameFor(model => model.FirstName)</h5>
+                                    <p class="card-text h6">@Html.DisplayFor(model => model.FirstName)</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h5 class="card-title text-muted">@Html.DisplayNameFor(model => model.LastName)</h5>
+                                    <p class="card-text h6">@Html.DisplayFor(model => model.LastName)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h5 class="card-title text-muted">@Html.DisplayNameFor(model => model.Gender)</h5>
+                                    <p class="card-text h6">@Html.DisplayFor(model => model.Gender)</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h5 class="card-title text-muted">@Html.DisplayNameFor(model => model.DateOfBirth)</h5>
+                                    <p class="card-text h6">@Html.DisplayFor(model => model.DateOfBirth)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h5 class="card-title text-muted">@Html.DisplayNameFor(model => model.PhoneNumber)</h5>
+                                    <p class="card-text h6">@Html.DisplayFor(model => model.PhoneNumber)</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h5 class="card-title text-muted">@Html.DisplayNameFor(model => model.BirthPlace)</h5>
+                                    <p class="card-text h6">@Html.DisplayFor(model => model.BirthPlace)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h5 class="card-title text-muted">@Html.DisplayNameFor(model => model.IsGraduated)</h5>
+                                    <p class="card-text h6">
+                                        @if (Model.IsGraduated)
+                                        {
+                                            <span class="badge bg-success">Đã tốt nghiệp</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-warning">Chưa tốt nghiệp</span>
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form asp-action="Delete" class="mt-4">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>Quay lại
+                            </a>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash me-2"></i>Xóa
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
